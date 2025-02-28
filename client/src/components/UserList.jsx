@@ -8,13 +8,12 @@ import Search from "./Search";
 import UserListItem from "./UserListItem";
 
 export default function UserList() {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    userService.getAll()
-        .then((result) => {
-            setUsers(result);
-        });
+    userService.getAll().then((result) => {
+      setUsers(result);
+    });
   }, []);
 
   return (
@@ -173,7 +172,7 @@ export default function UserList() {
             </thead>
             <tbody>
               {/* <!-- Table row component --> */}
-              <UserListItem />
+              {users.map(user => <UserListItem key={user._id} {...user} />)}
             </tbody>
           </table>
         </div>
