@@ -1,8 +1,20 @@
+// vendor libraries
+import { useEffect } from "react";
+
+import userService from "../services/userService";
+
 import Pagination from "./Pagination";
 import Search from "./Search";
 import UserListItem from "./UserListItem";
 
 export default function UserList() {
+  useEffect(() => {
+    userService.getAll()
+        .then((result) => {
+            console.log(result);
+        });
+  }, []);
+
   return (
     <>
       <section className="card users-container">
@@ -10,14 +22,13 @@ export default function UserList() {
 
         {/* <!-- Table component --> */}
         <div className="table-wrapper">
-
           <div className="Overlays">
-          {/* <!-- Overlap components  --> */}
+            {/* <!-- Overlap components  --> */}
 
-          {/* <!-- <div className="loading-shade"> --> */}
-          {/* <!-- Loading spinner  --> */}
-          {/* <!-- <div className="spinner"></div> --> */}
-          {/* <!-- No users added yet  
+            {/* <!-- <div className="loading-shade"> --> */}
+            {/* <!-- Loading spinner  --> */}
+            {/* <!-- <div className="spinner"></div> --> */}
+            {/* <!-- No users added yet  
         <!-- <div className="table-overlap"> 
               <svg aria-hidden="true"
                 focusable="false"
@@ -36,14 +47,12 @@ export default function UserList() {
               <h2>There is no users yet.</h2>
   </div> --> */}
 
-          {/* <!-- No content overlap component  --> */}
+            {/* <!-- No content overlap component  --> */}
 
-          
+            {/* <!-- On error overlap component  --> */}
 
-          {/* <!-- On error overlap component  --> */}
-
-          {/* <!-- <div className="table-overlap"> */}
-          {/*  <svg
+            {/* <!-- <div className="table-overlap"> */}
+            {/*  <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
@@ -60,7 +69,7 @@ export default function UserList() {
               </svg>
               <h2>Failed to fetch</h2>
             </div> --> */}
-          {/* <!-- </div> --> */}
+            {/* <!-- </div> --> */}
           </div>
 
           <table className="table">
@@ -162,7 +171,7 @@ export default function UserList() {
             </thead>
             <tbody>
               {/* <!-- Table row component --> */}
-            <UserListItem />
+              <UserListItem />
             </tbody>
           </table>
         </div>
