@@ -33,7 +33,7 @@ export default function UserCreate({
             <form onSubmit={onSave}>
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlhtmlFor="firstName">First name</label>
+                  <label htmlFor="firstName">First name</label>
                   <div className="input-wrapper">
                     <span>
                       <i className="fa-solid fa-user"></i>
