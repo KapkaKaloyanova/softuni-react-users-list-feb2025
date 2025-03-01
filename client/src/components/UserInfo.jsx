@@ -3,7 +3,8 @@ import userService from "../services/userService";
 import { fromIsoDate } from "../utils/dateTimeUtils";
 
 export default function UserInfo({ 
-    userId, 
+    userId,
+    onInfoClose, 
 }) {
   const [user, setUser] = useState({});
 
@@ -18,12 +19,12 @@ export default function UserInfo({
     <>
       {/* <!-- User details component  --> */}
       <div className="overlay">
-        <div className="backdrop"></div>
+        <div className="backdrop" onClick={onInfoClose}></div>
         <div className="modal">
           <div className="detail-container">
             <header className="headers">
               <h2>User Detail</h2>
-              <button className="btn close">
+              <button className="btn close" onClick={onInfoClose}>
                 <svg
                   aria-hidden="true"
                   focusable="false"

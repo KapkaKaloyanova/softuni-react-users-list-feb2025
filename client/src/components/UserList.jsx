@@ -12,7 +12,7 @@ import UserInfo from "./UserInfo";
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [showCreate, setShowCreate] = useState(false);
-  const [userIdInfo, setUserIdInfo] = useState(); //undefined falsy value
+  const [userIdInfo, setUserIdInfo] = useState(null); 
 
   useEffect(() => {
     userService.getAll().then((result) => {
@@ -52,6 +52,10 @@ export default function UserList() {
     setUserIdInfo(userId);
       };
 
+  const closeUserInfoClickHandler =() => {
+    setUserIdInfo(null);
+  }
+
   return (
     <>
       <section className="card users-container">
@@ -67,6 +71,7 @@ export default function UserList() {
           {userIdInfo && (
             <UserInfo
               userId={userIdInfo} 
+              onInfoClose={closeUserInfoClickHandler}
               />
           )};
 
