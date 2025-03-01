@@ -1,17 +1,25 @@
 const baseUrl = 'http://localhost:3030/jsonstore/users';
 export default {
-     async getAll(){
-        const response = await fetch(baseUrl);
-        const result = await response.json();
-        const users = Object.values(result);
+   async getAll() {
+      const response = await fetch(baseUrl);
+      const result = await response.json();
+      const users = Object.values(result);
 
-        return users;
-     },
+      return users;
+   },
 
-     async create(userData) {
-      const {county, city, street, streetNumber, ...postData} = userData;
+   async getOne(userId) {
+      const response = await fetch(`${baseUrl}/${userId}`);
+      const user = await response.json();
 
-      postData.address = {county, city, street, streetNumber};
+      return user;
+
+   },
+
+   async create(userData) {
+      const { county, city, street, streetNumber, ...postData } = userData;
+
+      postData.address = { county, city, street, streetNumber };
       postData.createdAt = new Date().toISOString();
       postData.updatedAt = new Date().toISOString();
 
@@ -24,5 +32,7 @@ export default {
       });
       const result = await response.json();
       return result;
-     },
+   },
+
+
 }

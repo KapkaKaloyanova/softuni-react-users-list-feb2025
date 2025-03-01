@@ -12,7 +12,7 @@ import UserInfo from "./UserInfo";
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [showCreate, setShowCreate] = useState(false);
-  const [userIdInfo, setUserIdInfo] = useState();
+  const [userIdInfo, setUserIdInfo] = useState(); //undefined falsy value
 
   useEffect(() => {
     userService.getAll().then((result) => {
@@ -48,16 +48,9 @@ export default function UserList() {
   };
 
   const userInfoClickHandler = (userId) => {
-     
-    // get current user
+
     setUserIdInfo(userId);
-    
-    // put user data into UserListItem 
-
-    // display userData
-
-    // close modal
-  };
+      };
 
   return (
     <>
