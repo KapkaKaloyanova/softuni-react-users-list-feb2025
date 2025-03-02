@@ -66,7 +66,7 @@ export default function UserInfo({
                 </p>
                 <p>
                   Address:
-                  <strong> {user.country}, {user.city}, {user.street} {user.streetNumber} </strong>
+                  <strong> {user.country}, {user.address?.city}, {user.address?.street} {user.address?.streetNumber} </strong>
                 </p>
 
                 <p>
