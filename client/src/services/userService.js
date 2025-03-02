@@ -60,9 +60,9 @@ export default {
 
 }
 function transformUserData (userData){
-   const { county, city, street, streetNumber, ...transformedData } = userData;
+   const { country, city, street, streetNumber, ...transformedData } = userData;
 
-   transformedData.address = { county, city, street, streetNumber };
+   transformedData.address = { country, city, street, streetNumber };
    transformedData.createdAt = new Date().toISOString();
    transformedData.updatedAt = new Date().toISOString();
 

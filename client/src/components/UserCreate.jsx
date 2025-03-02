@@ -108,7 +108,7 @@ export default function UserCreate({
                     <span>
                       <i className="fa-solid fa-map"></i>
                     </span>
-                    <input id="country" name="country" type="text" defaultValue={user.address?.country} />
+                    <input id="country" name="country" type="text" defaultValue={user.country} />
                   </div>
                 </div>
                 <div className="form-group">
