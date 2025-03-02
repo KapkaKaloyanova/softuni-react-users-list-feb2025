@@ -15,6 +15,7 @@ export default function UserList() {
     const [showCreate, setShowCreate] = useState(false);
     const [userIdInfo, setUserIdInfo] = useState(null);
     const [userIdDelete, setUserIdDelete] = useState(null);
+    const [userIdEdit, setUserIdEdit] = useState(null);
 
     useEffect(() => {
         userService.getAll().then((result) => {
@@ -28,6 +29,7 @@ export default function UserList() {
 
     const closeCreateUserClickHandler = () => {
         setShowCreate(false);
+        setUserIdEdit(null);
     };
 
     const saveCreateUserClickHandler = async (e) => {
@@ -35,7 +37,7 @@ export default function UserList() {
         // stop default refresh
         e.preventDefault();
         // get form Data from the event target
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.target.parentElement.parentElement);
         // transform data to object data
         const userData = Object.fromEntries(formData);
 
@@ -67,14 +69,34 @@ export default function UserList() {
 
     const userDeleteHandler = async () => {
         // Delete request to server
-        await userService.deleteOne(userIdDelete);
+        await userService.delete(userIdDelete);
 
         // Delete from local state
         setUsers(state => state.filter(user => user._id !== userIdDelete));
-        
+
         // Close modal
         setUserIdDelete(null);
     };
+
+    const userEditClickHandler = (userId) => {
+        setUserIdEdit(userId);
+    }
+
+    const saveEditUserClickHandler = async (e) => {
+        const userId = userIdEdit;
+        // Stop submit refresh
+        e.preventDefault();
+        // get form Data from the event target
+        const formData = new FormData(e.target.parentElement.parentElement);
+        const userData = Object.fromEntries(formData);
+
+        // Update user on server
+        const updatedUser = await userService.update(userId, userData);
+        // Update local state
+        setUsers(state => state.map(user => user._id ===userId ? updatedUser : user) )
+        // Close modal
+        setUserIdEdit(null);
+    }
 
     return (
         <>
@@ -99,6 +121,15 @@ export default function UserList() {
                     <UserDelete 
                         onClose={closeUserDeleteClickHandler}
                         onDelete={userDeleteHandler}
+                    />
+                )}
+
+                {userIdEdit &&(
+                    <UserCreate
+                        userId={userIdEdit}
+                        onClose={closeCreateUserClickHandler}
+                        onSave={saveCreateUserClickHandler}
+                        onEdit={saveEditUserClickHandler}
                     />
                 )}
                 
@@ -256,6 +287,7 @@ export default function UserList() {
                                     key={user._id}
                                     onInfoClick={userInfoClickHandler}
                                     onDeleteClick={userDeleteClickHandler}
+                                    onEditClick={userEditClickHandler}
                                     {...user}
                                 />
                             ))}
